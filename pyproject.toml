@@ -24,7 +24,7 @@ dependencies = [
     "pydriller==2.5",
     "click==8.1.7",
     "flask==3.0.0",
-    "flask-cors==4.0.0",
+    "flask-cors==6.0.1",
     "pytest==7.4.3",
     "python-dateutil==2.8.2",
     "typing-extensions==4.8.0",
