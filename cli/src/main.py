@@ -39,7 +39,9 @@ def analyze(repo_path, output, verbose):
 
         if verbose:
             click.echo("Analysis complete!")
-            click.echo(f"  - Total commits: {timeline_data['metadata']['total_commits']}")
+            click.echo(
+                f"  - Total commits: {timeline_data['metadata']['total_commits']}"
+            )
             click.echo(
                 f"  - Total contributors: {timeline_data['metadata']['total_contributors']}"
             )
@@ -53,23 +55,24 @@ def analyze(repo_path, output, verbose):
 
 
 @cli.command()
-@click.option('-p', '--port', default=3001, help='Port to run the server on')
-@click.option('-d', '--data', default='timeline.json',
-              help='Path to timeline data file')
+@click.option("-p", "--port", default=3001, help="Port to run the server on")
+@click.option(
+    "-d", "--data", default="timeline.json", help="Path to timeline data file"
+)
 def serve(port, data):
     """Start the web interface server."""
-    app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
+    app = Flask(__name__, static_folder="../frontend/build", static_url_path="")
     CORS(app)
 
-    @app.route('/')
+    @app.route("/")
     def index():
-        return send_from_directory(app.static_folder, 'index.html')
+        return send_from_directory(app.static_folder, "index.html")
 
-    @app.route('/api/timeline')
+    @app.route("/api/timeline")
     def get_timeline():
         if os.path.exists(data):
-            return send_from_directory('.', data)
-        return {'error': 'Timeline data not found'}, 404
+            return send_from_directory(".", data)
+        return {"error": "Timeline data not found"}, 404
 
     click.echo(f"Starting server on http://localhost:{port}")
     click.echo(f"Timeline data: {data}")
@@ -77,10 +80,15 @@ def serve(port, data):
 
 
 @cli.command()
-@click.argument('data_file', type=click.Path(exists=True))
-@click.option('-f', '--format', type=click.Choice(['html', 'mp4', 'gif']),
-              default='html', help='Export format')
-@click.option('-o', '--output', help='Output file path')
+@click.argument("data_file", type=click.Path(exists=True))
+@click.option(
+    "-f",
+    "--format",
+    type=click.Choice(["html", "mp4", "gif"]),
+    default="html",
+    help="Export format",
+)
+@click.option("-o", "--output", help="Output file path")
 def export(data_file, format, output):
     """Export timeline visualization to different formats."""
     if not output:
@@ -93,5 +101,5 @@ def export(data_file, format, output):
     click.echo("Export functionality coming soon!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
