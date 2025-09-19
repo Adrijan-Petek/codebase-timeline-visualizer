@@ -13,7 +13,7 @@ def analyze_repository(repo_path: str, output_path: str = None) -> Dict[str, Any
     if not Path(repo_path).exists():
         raise ValueError(f"Repository path does not exist: {repo_path}")
 
-    if not Path(repo_path, '.git').exists():
+    if not Path(repo_path, ".git").exists():
         raise ValueError(f"Not a Git repository: {repo_path}")
 
     print(f"Analyzing repository: {repo_path}")
@@ -49,10 +49,16 @@ def main():
     """Command-line interface for repository analysis."""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Analyze Git repository for timeline visualization')
-    parser.add_argument('repo_path', help='Path to Git repository')
-    parser.add_argument('-o', '--output', default='timeline.json',
-                       help='Output file path (default: timeline.json)')
+    parser = argparse.ArgumentParser(
+        description="Analyze Git repository for timeline visualization"
+    )
+    parser.add_argument("repo_path", help="Path to Git repository")
+    parser.add_argument(
+        "-o",
+        "--output",
+        default="timeline.json",
+        help="Output file path (default: timeline.json)",
+    )
 
     args = parser.parse_args()
 
@@ -65,5 +71,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(main())
