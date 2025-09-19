@@ -1,5 +1,5 @@
 gitpython==3.1.30
-pydriller==2.5
+pydriller==2.9
 click==8.1.7
 flask==3.0.0
 flask-cors==4.0.0
