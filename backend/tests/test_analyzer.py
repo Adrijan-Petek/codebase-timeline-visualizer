@@ -5,9 +5,14 @@ Tests for Git analyzer module.
 import pytest
 import tempfile
 import os
+import sys
 from pathlib import Path
 from git import Repo
-from src.analyzer import GitAnalyzer
+
+# Add the backend src directory to the path
+sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
+
+from analyzer import GitAnalyzer
 
 
 @pytest.fixture
