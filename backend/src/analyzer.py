@@ -35,13 +35,17 @@ class GitAnalyzer:
         lines_removed = 0
 
         # Handle modifications safely
-        if hasattr(commit, 'modifications') and commit.modifications:
+        if hasattr(commit, "modifications") and commit.modifications:
             for modification in commit.modifications:
                 file_data = {
                     "filename": modification.filename or "unknown",
                     "old_path": modification.old_path,
                     "new_path": modification.new_path,
-                    "change_type": modification.change_type.name if modification.change_type else "UNKNOWN",
+                    "change_type": (
+                        modification.change_type.name
+                        if modification.change_type
+                        else "UNKNOWN"
+                    ),
                     "lines_added": modification.added_lines or 0,
                     "lines_removed": modification.removed_lines or 0,
                     "complexity": getattr(modification, "complexity", 0),
