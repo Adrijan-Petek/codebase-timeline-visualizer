@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.1.1",
     "react-scripts": "5.0.1",
     "d3": "^7.8.5",
     "axios": "^1.5.0",
