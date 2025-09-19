@@ -13,7 +13,7 @@ from flask_cors import CORS
 # Add backend to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend" / "src"))
 
-from main import analyze_repository
+from main import analyze_repository  # noqa: E402
 
 
 @click.group()
@@ -43,7 +43,8 @@ def analyze(repo_path, output, verbose):
                 f"  - Total commits: {timeline_data['metadata']['total_commits']}"
             )
             click.echo(
-                f"  - Total contributors: {timeline_data['metadata']['total_contributors']}"
+                f"  - Total contributors: "
+                f"{timeline_data['metadata']['total_contributors']}"
             )
             click.echo(f"  - Total files: {timeline_data['metadata']['total_files']}")
         else:
