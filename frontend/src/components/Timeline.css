@@ -1,0 +1,33 @@
+.timeline-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.timeline-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.commit-point {
+  cursor: pointer;
+  transition: r 0.2s;
+}
+
+.commit-point:hover {
+  r: 6;
+}
+
+.axis text {
+  font-size: 12px;
+  fill: #666;
+}
+
+.axis line,
+.axis path {
+  stroke: #ddd;
+}
+
+.axis .domain {
+  stroke: #aaa;
+}

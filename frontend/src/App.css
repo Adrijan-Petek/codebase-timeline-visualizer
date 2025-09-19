@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+}
+
+.App-main {
+  padding: 20px;
+}
+
+.timeline-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.play-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.play-button:hover {
+  background-color: #0056b3;
+}
+
+.timeline-slider {
+  flex: 1;
+  margin: 0 20px;
+  height: 6px;
+  background: #ddd;
+  outline: none;
+  border-radius: 3px;
+}
+
+.timeline-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.time-display {
+  font-family: monospace;
+  font-size: 14px;
+  color: #666;
+}
+
+.visualization-area {
+  height: 600px;
+  position: relative;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666;
+}
+
+.placeholder p {
+  margin: 10px 0;
+  font-size: 18px;
+}

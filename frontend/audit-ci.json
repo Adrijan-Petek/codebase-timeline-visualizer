@@ -1,0 +1,19 @@
+{
+  "levels": {
+    "low": true,
+    "moderate": true,
+    "high": true,
+    "critical": true
+  },
+  "report": {
+    "type": "json",
+    "path": "./audit-results.json"
+  },
+  "allowlist": [
+    {
+      "package": "example-package",
+      "version": "1.0.0",
+      "reason": "Example allowlisted package"
+    }
+  ]
+}

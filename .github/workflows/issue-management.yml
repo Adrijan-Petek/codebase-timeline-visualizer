@@ -1,0 +1,100 @@
+name: Issue Management
+
+on:
+  issues:
+    types: [opened, labeled, unlabeled]
+  pull_request_target:
+    types: [opened, labeled, unlabeled]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Add triage label
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: ['triage']
+          })
+
+  stale:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Stale issues and PRs
+      uses: actions/stale@v8
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: |
+          This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs.
+
+          If this issue is still relevant, please leave a comment to keep it open.
+        stale-pr-message: |
+          This pull request has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs.
+
+          If this PR is still relevant, please leave a comment to keep it open.
+        close-issue-message: |
+          This issue has been automatically closed due to inactivity.
+        close-pr-message: |
+          This pull request has been automatically closed due to inactivity.
+        days-before-stale: 60
+        days-before-close: 7
+        exempt-issue-labels: 'enhancement,bug,documentation'
+        exempt-pr-labels: 'work-in-progress'
+
+  health-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Check repository health
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: issues } = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: 'bug'
+          });
+
+          const { data: prs } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open'
+          });
+
+          console.log(`Open bug issues: ${issues.length}`);
+          console.log(`Open pull requests: ${prs.length}`);
+
+          // Create health status issue if needed
+          if (issues.length > 10) {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Repository Health Check',
+              body: `## Repository Health Status
+
+          **Open Bug Issues:** ${issues.length}
+          **Open Pull Requests:** ${prs.length}
+
+          Consider reviewing and addressing high-priority issues.`,
+              labels: ['health-check', 'automated']
+            });
+          }
